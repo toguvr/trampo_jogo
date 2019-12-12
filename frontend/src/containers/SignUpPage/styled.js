@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
 
 export const MainHomeContainer = styled.div`
     display: flex;
@@ -7,51 +9,27 @@ export const MainHomeContainer = styled.div`
     width: 100%;
     background: #F5F5F5;
     align-items:center;
+    justify-content:space-evenly;
 `
 
 export const TitleLogo = styled.h1`
     @import url('https://fonts.googleapis.com/css?family=Sigmar+One&display=swap');
     font-family: 'Sigmar One', cursive;
-    font-size: 40px;
+    font-size: 55px;
     color: #801CDE;
+    margin:0;
 `
 
 export const LobbyBody = styled.div`
-    width:90%;
+    width:80%;
     height:250px;
     background: white;
-    overflow-y: scroll;
     border:1px solid gray;
     border-radius:30px;
     display:flex;
     flex-direction:column;
     align-items:center;
     padding-bottom:20px;
-`
-
-export const HomeDiv = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-`
-
-export const ProfileDiv = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-    height: 100%;
-`
-
-export const MainLobbyBar = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:space-evenly;
-    width: 100%;
-    background:#f5f5f5;
-    border:1px lightgray solid;
-    margin-bottom:5px;
 `
 
 export const LobbyName = styled.div`
@@ -62,23 +40,16 @@ export const LobbyName = styled.div`
     margin-top:20px;
 `
 
-export const HomeContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex:1;
-    width: 90%;
-    align-items:center;
-    justify-content:space-evenly;
-`
-
 export const CreateLobby = styled.button`
-    width:80%;
+    width:100%;
     height:30px;
     background: #801CDE;
     border: 1px solid black;
     box-shadow: 0 2px 5px rgba(0,0,0,0.8);
     color: white;
     font-weight:bold;
+    margin-bottom:8px;
+
     :active{
         position: relative;
         top: 1px;
@@ -97,3 +68,49 @@ export const InputName = styled.input`
         text-align:center;
     }
 `
+
+export const TextAccount = styled.span`
+font-size: 14px;
+`
+
+export const FormBody = styled.form`
+    display:flex;
+    flex-direction:column;
+`
+
+export const TitlePage = styled.span`
+`
+
+export const FooterButton = styled.div`
+display: flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+width:100%;
+`
+
+export const TextClick = styled.span`
+font-size: 14px;
+color: #801CDE;
+text-decoration: underline;
+
+:hover{
+    cursor:pointer;
+}
+`
+
+export const TextFieldStyled = styled(TextField)`
+div{
+margin-bottom: 10px;
+}
+`
+
+export const FormControlStyled = styled(FormControl)`
+div :last-child{
+    margin:0;
+}
+div{
+    margin-bottom: 16px;
+}
+`
+

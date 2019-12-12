@@ -17,7 +17,7 @@ export const TitleLogo = styled.h1`
 `
 
 export const LobbyBody = styled.div`
-    width:90%;
+    width:80%;
     height:250px;
     background: white;
     overflow-y: scroll;
@@ -27,31 +27,6 @@ export const LobbyBody = styled.div`
     flex-direction:column;
     align-items:center;
     padding-bottom:20px;
-`
-
-export const HomeDiv = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-`
-
-export const ProfileDiv = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:100%;
-    height: 100%;
-`
-
-export const MainLobbyBar = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:space-evenly;
-    width: 100%;
-    background:#f5f5f5;
-    border:1px lightgray solid;
-    margin-bottom:5px;
 `
 
 export const LobbyName = styled.div`
@@ -66,9 +41,47 @@ export const HomeContainer = styled.div`
     display: flex;
     flex-direction: column;
     flex:1;
-    width: 90%;
+    width: 100%;
     align-items:center;
-    justify-content:space-evenly;
+`
+
+export const UserDates = styled.div`
+    padding:8px;
+    background: rgb(238, 238, 238);
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+`
+
+export const AvatarDiv = styled.label`
+    background: #eeeeee;
+    display:flex;
+    background-size: cover;
+    cursor:pointer;
+    border: 1px dashed black;
+    border-radius:50%;
+    width:100px;
+    height:100px;
+    margin-bottom: 15px;
+    justify-content:center;
+    align-items:center;
+`
+
+export const InputAvatar=styled.input`
+    display: none;
+
+    :focus{
+        outline:none;
+    }
+`
+
+export const UserDatesTitle = styled.span`
+    color:rgb(184, 184, 184);
+    margin-top:5px;
+`
+
+export const UserInfo = styled.span`
+    margin-bottom:5px;
 `
 
 export const CreateLobby = styled.button`
