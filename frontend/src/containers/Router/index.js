@@ -3,10 +3,18 @@ import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
 import LoginPage from "../LoginPage";
 import Home from "../HomePage";
+import SignUpPage from "../SignUpPage";
+import {PrivateRoute} from "../../style/constants";
+import ProfilePage from "../ProfilePage";
+import LobbyPage from "../LobbyPage";
 
-const routes = {
+export const routes = {
   home: "/",
   lobby: "/lobby",
+  game: "/game",
+  login: "/login",
+  signup: "/signup",
+  profile: "/profile",
   // Outras rotas aqui
 };
 
@@ -14,8 +22,11 @@ function Router(props) {
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
-        <Route path={routes.lobby} component={LoginPage} />
-        <Route path={routes.home} component={Home} />
+        <PrivateRoute path={routes.lobby} component={LobbyPage} />
+        <PrivateRoute path={routes.profile} component={ProfilePage} />
+        <Route path={routes.login} component={LoginPage} />
+        <Route path={routes.signup} component={SignUpPage} />
+        <PrivateRoute path={routes.home} component={Home} />
       </Switch>
     </ConnectedRouter>
   );

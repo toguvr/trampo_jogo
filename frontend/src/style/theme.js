@@ -3,6 +3,8 @@ import orange from "@material-ui/core/colors/orange";
 
 export default createMuiTheme({
   palette: {
-    primary: orange
+    primary: {
+      main: "#801CDE"
+    }
   }
 });
