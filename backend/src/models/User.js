@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     email: String,
     password: String,
     avatar: String,
+    currentRoom: String,
     live: Boolean,
     vocation: String,
     vote: {

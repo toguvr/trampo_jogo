@@ -5,7 +5,6 @@ var jwt = require('jsonwebtoken');
 module.exports = {
     async index(req, res) {
         let currentUser = await User.findById(req.userId)
-
             return res.json(currentUser)
         
     },
@@ -32,9 +31,10 @@ module.exports = {
 
         if (!user) {
             return res.status(400).json({ message: 'Usuário ou senha não cadastrados' })
-        }
+        }else{
         const newAvatar = await User.findByIdAndUpdate(req.userId, {avatar: filename})
         return res.json(newAvatar)
+    }
 
     },
 

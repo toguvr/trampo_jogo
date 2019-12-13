@@ -43,6 +43,15 @@ export const setRoom = currentRoom => {
     };
 };
 
+export const setRoomInfo = currentRoomInfo => {
+    return {
+        type: 'SET_ROOM_INFO',
+        payload: {
+            currentRoomInfo
+        }
+    };
+};
+
 export const setCurrentProfile = currentProfile => {
     return {
         type: 'SET_PROFILE',

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../Router";
@@ -10,11 +10,29 @@ import LobbyName from "../../Components/LobbyName";
 import { MainHomeContainer, HomeContainer, LobbyBody, MainLobbyBar, HomeDiv, ProfileDiv } from './styled'
 import { TitleLogo, DefaultButton, ErrorMsg } from '../../style/styled'
 import { getRooms, createRoom } from '../../actions/room'
+import { setRoomList } from '../../actions'
+import { getProfile } from '../../actions/auth'
+import socketio from 'socket.io-client'
 
 const Home = (props) => {
     useEffect(()=>{
+        props.getProfile()
         props.getRooms()
+
     },[])
+
+    const token = localStorage.getItem('token')
+    const socket = useMemo(()=> socketio('http://localhost:3333',{
+        query: {token}
+    }),[token])
+
+    useEffect(()=>{
+
+        socket.on('updateRooms', data=>{
+            props.setRoomList(data)
+        })
+
+    },[props.allRooms, socket])
 
     const createOneRoom=()=>{
         props.createRoom()
@@ -30,7 +48,7 @@ const Home = (props) => {
                         <HomeDiv>Salas:</HomeDiv>
                         <ProfileDiv>Jogadores:</ProfileDiv>
                     </MainLobbyBar>
-                   {props.allRooms.filter(lobby=>lobby.playing===false).map((lobby,index)=>{
+                   {props.allRooms.filter(lobby=>lobby.playing===false).filter(pNumber=>pNumber.users.length>0).map((lobby,index)=>{
                        return <LobbyName 
                        key={index}
                        id={lobby._id}
@@ -54,8 +72,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getRooms: () => dispatch(getRooms()),
+    getProfile: () => dispatch(getProfile()),
     createRoom: () => dispatch(createRoom()),
     goToHomePage: () => dispatch(push(routes.home)),
+    setRoomList: (list) => dispatch(setRoomList(list)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

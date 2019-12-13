@@ -16,8 +16,8 @@ const NavBar = (props) => {
     }
     return (
         <MainNavBar>
-            <HomeDiv><HomeOutlined onClick={props.currentPage==="/profile" && changePage} color={props.currentPage==="/" ? "primary" : "disabled"} fontSize="large"/></HomeDiv>
-            <ProfileDiv><PersonOutlined onClick={props.currentPage==="/" && changePage} color={props.currentPage==="/profile" ? "primary" : "disabled"} fontSize="large"/></ProfileDiv>
+            <HomeDiv onClick={props.currentPage==="/profile" && changePage}><HomeOutlined color={props.currentPage==="/" ? "primary" : "disabled"} fontSize="large"/></HomeDiv>
+            <ProfileDiv onClick={props.currentPage==="/" && changePage} ><PersonOutlined color={props.currentPage==="/profile" ? "primary" : "disabled"} fontSize="large"/></ProfileDiv>
         </MainNavBar>
     )
 }

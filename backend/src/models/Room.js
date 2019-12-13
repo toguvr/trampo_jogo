@@ -7,8 +7,9 @@ const RoomSchema = new mongoose.Schema({
     }],
     admRoom: String,
     roomName: String,
+    currentPage: String,
     playing: Boolean,
-
+    finish: Boolean,
 })
 
 module.exports = mongoose.model('Room', RoomSchema)

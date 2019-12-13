@@ -32,8 +32,9 @@ routes.get('/avatar', verifyJWT, SessionController.index)
 routes.post('/room/create', verifyJWT, RoomController.store)
 routes.get('/rooms', verifyJWT, RoomController.index)
 routes.put('/rooms/:roomId/join', verifyJWT, RoomController.change)
+routes.put('/rooms/:roomId/leave', verifyJWT, RoomController.leaveRoom)
 routes.put('/rooms/:room_Id/start', verifyJWT, RoomController.start)
-routes.get('/room/:id_room',RoomController.getRoom)
+routes.get('/room/:id_room', verifyJWT, RoomController.getRoom)
 
 routes.put('/vote', verifyJWT, GameController.vote)
 

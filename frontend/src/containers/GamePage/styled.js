@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const MainHomeContainer = styled.div`
+export const GameMainContainer = styled.div`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
