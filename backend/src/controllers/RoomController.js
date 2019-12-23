@@ -24,8 +24,8 @@ module.exports = {
             return res.json({ message: "você está em uma sala em andamento" })
         } else if (!room.playing && !room.finish) {
             return res.json({ message: "você está em uma sala em andamento" })
-        }else{
-            return res.json({message: "ops, algo estranho ocorreu"})
+        } else {
+            return res.json({ message: "ops, algo estranho ocorreu" })
         }
     },
 
@@ -61,8 +61,9 @@ module.exports = {
                 await User.findByIdAndUpdate(usersRoom[i], { vocation: voc, live: true })
             }
 
-            const startRoom = await Room.findByIdAndUpdate(room_Id, { playing: true }, { new: true, useFindAndModify: true })
+            const startRoom = await Room.findByIdAndUpdate(room_Id, { playing: true, currentPage: 'gameHome' }, { new: true, useFindAndModify: true })
             await startRoom.populate('users').execPopulate()
+            req.io.emit('playersOnRoom', startRoom)
             return res.json(startRoom)
         } else {
             return res.json({ message: "sala nao encontrada ou usuario nao e o adm" })
@@ -78,10 +79,11 @@ module.exports = {
         const newRoomUsers = [...roomUsers.users, currentUser]
         if (roomUsers.users.indexOf(req.userId) !== -1) {
             return res.json({ message: "você já está nesta sala" })
-        } else{
+        } else {
             await User.findByIdAndUpdate(req.userId, { currentRoom: roomId }, { new: true, useFindAndModify: false })
             const currentRoom = await Room.findByIdAndUpdate(roomId, { users: newRoomUsers }, { new: true, useFindAndModify: false })
             await currentRoom.populate('users').execPopulate()
+            req.io.emit('playersOnRoom', currentRoom)
             return res.json(currentRoom)
         }
     },
@@ -93,20 +95,22 @@ module.exports = {
         let roomUsers = await Room.findById(roomId)
         await roomUsers.populate('users').execPopulate()
         const newRoomUsers = [...roomUsers.users]
-        const idRemove = newRoomUsers.find(id=> id.id === req.userId)
+        const idRemove = newRoomUsers.find(id => id.id === req.userId)
         const index = newRoomUsers.indexOf(idRemove)
         newRoomUsers.splice(index, 1)
 
         if (index === -1) {
             return res.json({ message: "usuario nao está na sala" })
-        }else if(newRoomUsers.length===0){
-            await User.findByIdAndUpdate(req.userId, { currentRoom: null }, { new: true, useFindAndModify: false })
+        } else if (newRoomUsers.length === 0) {
+            await User.findByIdAndUpdate(req.userId, { live: true, currentRoom: null }, { new: true, useFindAndModify: false })
             const currentRoom = await Room.findByIdAndUpdate(roomId, { users: newRoomUsers, finish: true }, { new: true, useFindAndModify: false })
+            req.io.emit('playersOnRoom', currentRoom)
             return res.json(currentRoom)
-        }else{
-            await User.findByIdAndUpdate(req.userId, { currentRoom: null }, { new: true, useFindAndModify: false })
+        } else {
+            await User.findByIdAndUpdate(req.userId, {live: true, currentRoom: null }, { new: true, useFindAndModify: false })
             const currentRoom = await Room.findByIdAndUpdate(roomId, { users: newRoomUsers }, { new: true, useFindAndModify: false })
             await currentRoom.populate('users').execPopulate()
+            req.io.emit('playersOnRoom', currentRoom)
             return res.json(currentRoom)
         }
     },

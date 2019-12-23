@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginPage from "../LoginPage";
 import Home from "../HomePage";
 import SignUpPage from "../SignUpPage";
-import {PrivateRoute} from "../../style/constants";
+import { PrivateRoute } from "../../style/constants";
 import ProfilePage from "../ProfilePage";
 import GamePage from "../GamePage";
 

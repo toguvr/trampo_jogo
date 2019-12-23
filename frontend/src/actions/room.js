@@ -40,12 +40,14 @@ export const joinRoom = (id) => async (dispatch) => {
 
     if (response.data.admRoom) {
         dispatch(setRoom(response.data))
+        dispatch(getRooms())
         dispatch(push(`/lobby/${id}`))
-    }else if(response.data.message === "você já está nesta sala"){
+    } else if (response.data.message === "você já está nesta sala") {
         dispatch(getRoom(id))
         dispatch(push(`/lobby/${id}`))
+        dispatch(getRooms())
         dispatch(setHomeError(response.data.message))
-    }else{
+    } else {
         dispatch(setHomeError(response.data.message))
     }
 }
@@ -63,10 +65,10 @@ export const leaveRoom = (id) => async (dispatch) => {
     if (response.data.admRoom) {
         dispatch(getRoom(id))
         dispatch(push(routes.home))
-    }else if(response.data.message === "usuario nao está na sala"){
+    } else if (response.data.message === "usuario nao está na sala") {
         dispatch(getRoom(id))
         dispatch(push(routes.home))
-    }else{
+    } else {
         dispatch(setHomeError(response.data.message))
     }
 }
@@ -82,8 +84,9 @@ export const createRoom = () => async (dispatch) => {
     })
     if (!response.data.message) {
         dispatch(setRoom(response.data))
+        dispatch(getRooms())
         dispatch(push(`/lobby/${response.data._id}`))
-    }else{
+    } else {
         dispatch(setHomeError(response.data.message))
     }
 }
@@ -97,9 +100,33 @@ export const startRoom = (id) => async (dispatch) => {
         }
     })
     if (!response.data.message) {
-        dispatch(setRoomInfo(response.data))
+        dispatch(setRoom(response.data))
         dispatch(push(`/game/${id}`))
-    }else{
+    } else {
+        dispatch(setHomeError(response.data.message))
+    }
+}
+
+export const vote = (votedUser_id, room_Id, vocation, page) => async (dispatch) => {
+
+    const token = window.localStorage.getItem('token');
+
+    const body = {
+        votedUser_id, 
+        room_Id, 
+        vocation,
+        page,
+    }
+
+    const response = await axios.put(`${baseURL}/vote`, body, {
+        headers: {
+            auth: token
+        }
+    })
+    if (!response.data.message) {
+        dispatch(setRoom(response.data))
+        dispatch(push(`/game/${room_Id}`))
+    } else {
         dispatch(setHomeError(response.data.message))
     }
 }

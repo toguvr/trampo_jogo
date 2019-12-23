@@ -5,6 +5,7 @@ const RoomSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
+    currentVotes: [Object],
     admRoom: String,
     roomName: String,
     currentPage: String,

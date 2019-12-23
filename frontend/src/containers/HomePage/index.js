@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from "react";
+import React, { useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../Router";
@@ -15,26 +15,26 @@ import { getProfile } from '../../actions/auth'
 import socketio from 'socket.io-client'
 
 const Home = (props) => {
-    useEffect(()=>{
+    useEffect(() => {
         props.getProfile()
         props.getRooms()
 
-    },[])
+    }, [])
 
     const token = localStorage.getItem('token')
-    const socket = useMemo(()=> socketio('http://localhost:3333',{
-        query: {token}
-    }),[token])
+    const socket = useMemo(() => socketio('http://localhost:3333', {
+        query: { token }
+    }), [token])
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        socket.on('updateRooms', data=>{
+        socket.on('updateRooms', data => {
             props.setRoomList(data)
         })
 
-    },[props.allRooms, socket])
+    }, [props.allRooms, socket])
 
-    const createOneRoom=()=>{
+    const createOneRoom = () => {
         props.createRoom()
     }
 
@@ -42,20 +42,20 @@ const Home = (props) => {
         <MainHomeContainer>
             <TitleLogo>Trampo</TitleLogo>
             <HomeContainer>
-                {props.homeMsg? <ErrorMsg>{props.homeMsg}</ErrorMsg> : null}
+                {props.homeMsg ? <ErrorMsg>{props.homeMsg}</ErrorMsg> : null}
                 <LobbyBody>
                     <MainLobbyBar>
                         <HomeDiv>Salas:</HomeDiv>
                         <ProfileDiv>Jogadores:</ProfileDiv>
                     </MainLobbyBar>
-                   {props.allRooms.filter(lobby=>lobby.playing===false).filter(pNumber=>pNumber.users.length>0).map((lobby,index)=>{
-                       return <LobbyName 
-                       key={index}
-                       id={lobby._id}
-                       name={lobby.roomName}
-                       nPlayers={lobby.users.length}
-                       />
-                   })}
+                    {props.allRooms.filter(lobby => lobby.playing === false).filter(pNumber => pNumber.users.length > 0).map((lobby, index) => {
+                        return <LobbyName
+                            key={index}
+                            id={lobby._id}
+                            name={lobby.roomName}
+                            nPlayers={lobby.users.length}
+                        />
+                    })}
                 </LobbyBody>
                 <DefaultButton onClick={createOneRoom}>Criar Sala</DefaultButton>
             </HomeContainer>

@@ -24,13 +24,12 @@ mongoose.connect('mongodb+srv://guto:wsde123@acusado-yiqr2.mongodb.net/test?retr
 const connectedUsers = {}
 
 io.on('connection', socket => {
-    console.log('usuario conectado', socket.id)
     const {token} = socket.handshake.query
 
     connectedUsers[token] = socket.id
     
     socket.on('omni', data=>{
-        console.log(data)
+
         
       })
     socket.emit('hello', 'Msg do Back')

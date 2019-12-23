@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../Router"
-import Button from "@material-ui/core/Button";
-import styled from "styled-components";
 import { MainHomeContainer, TextClick, FooterButton, TextAccount, FormBody, TextFieldStyled, FormControlStyled, TitlePage } from './styled'
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -86,7 +82,6 @@ class LoginPage extends Component {
               labelWidth={70}
             />
           </FormControlStyled>
-
           <FooterButton>
             <DefaultButton >Login</DefaultButton>
             <TextAccount>Novato no trampo? <TextClick onClick={goToSignUpPage}>Clique aqui.</TextClick></TextAccount>
